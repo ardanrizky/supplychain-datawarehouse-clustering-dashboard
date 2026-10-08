@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Supply Chain Clustering Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading">
+  <div class="loader"></div>
+  <p>Memuat data...</p>
+</div>
+
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Supply Chain Analytics</p>
+    <h1>Clustering Dashboard</h1>
+  </div>
+</header>
+
+<main class="container">
+  <section class="summary-grid">
+    <article class="summary-card">
+      <span>Total Produk</span>
+      <strong id="kpi-total">—</strong>
+      <p>record database</p>
+    </article>
+
+    <article class="summary-card accent-green">
+      <span>Cluster A</span>
+      <strong id="kpi-a">—</strong>
+      <p>high performance</p>
+    </article>
+
+    <article class="summary-card accent-blue">
+      <span>Cluster B</span>
+      <strong id="kpi-b">—</strong>
+      <p>medium performance</p>
+    </article>
+
+    <article class="summary-card accent-orange">
+      <span>Cluster C</span>
+      <strong id="kpi-c">—</strong>
+      <p>low performance</p>
+    </article>
+
+    <article class="summary-card accent-purple">
+      <span>Total Biaya</span>
+      <strong id="kpi-biaya">—</strong>
+      <p>seluruh produk</p>
+    </article>
+  </section>
+
+  <section class="chart-grid">
+    <article class="panel">
+      <div class="panel-header">
+        <h2>Distribusi Cluster Kinerja</h2>
+      </div>
+      <canvas id="chartCluster"></canvas>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h2>Total Unit per Kota</h2>
+      </div>
+      <canvas id="chartKota"></canvas>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <h2>Distribusi Waktu Siklus</h2>
+      </div>
+      <canvas id="chartWaktu"></canvas>
+    </article>
+  </section>
+
+  <section class="filter-panel">
+    <div class="filter-group">
+      <label>Cluster</label>
+      <select id="f-cluster">
+        <option value="">Semua</option>
+        <option>CLUSTER A (HIGH PERFORMANCE)</option>
+        <option>CLUSTER B (MEDIUM PERFORMANCE)</option>
+        <option>CLUSTER C (LOW PERFORMANCE)</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Kategori</label>
+      <select id="f-kategori"><option value="">Semua</option></select>
+    </div>
+
+    <div class="filter-group">
+      <label>Kota</label>
+      <select id="f-kota"><option value="">Semua</option></select>
+    </div>
+
+    <div class="filter-group">
+      <label>Waktu Siklus</label>
+      <select id="f-waktu">
+        <option value="">Semua</option>
+        <option>CEPAT</option>
+        <option>NORMAL</option>
+        <option>LAMBAT</option>
+      </select>
+    </div>
+
+    <div class="filter-group search">
+      <label>Cari Produk</label>
+      <input id="f-search" placeholder="Ketik nama produk..." />
+    </div>
+
+    <button class="btn primary" id="btn-filter">Filter</button>
+    <button class="btn" id="btn-reset">Reset</button>
+  </section>
+
+  <section class="panel table-panel">
+    <div class="panel-header table-title">
+      <h2>Data Clustering Supply Chain</h2>
+      <span id="row-count">0 baris</span>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama Produk</th>
+            <th>Kategori</th>
+            <th>Kota</th>
+            <th>Departemen</th>
+            <th>Total Unit</th>
+            <th>Total Biaya</th>
+            <th>Rata Waktu Siklus</th>
+            <th>Kategori Cacat</th>
+            <th>Kategori Waktu</th>
+            <th>Kategori Biaya Pengiriman</th>
+            <th>Cluster Kinerja</th>
+          </tr>
+        </thead>
+        <tbody id="tbl-body">
+          <tr><td colspan="12" class="empty-state">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </section>
+</main>
+
+<script src="js/script.js"></script>
+</body>
+</html>

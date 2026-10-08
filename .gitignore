@@ -1,0 +1,12 @@
+# OS & Logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Pentaho Temp
+*.backup
+*.kdb
+pentaho_tmp/
+
+# Web server local configs
+config.local.php
