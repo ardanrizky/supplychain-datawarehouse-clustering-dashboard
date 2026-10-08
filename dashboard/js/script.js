@@ -16,11 +16,19 @@ async function loadData() {
   showLoading(true);
 
   try {
-    const response = await fetch('get_data.php', { cache: 'no-store' });
-    const result = await response.json();
+    let result = null;
+    try {
+      const response = await fetch('get_data.php', { cache: 'no-store' });
+      if (response.ok) {
+        result = await response.json();
+      }
+    } catch (e) {
+      // get_data.php fallback
+    }
 
-    if (!response.ok || result.error) {
-      throw new Error(result.error || 'Gagal mengambil data');
+    if (!result || !result.data) {
+      const fallbackResponse = await fetch('data.json');
+      result = await fallbackResponse.json();
     }
 
     allData = Array.isArray(result.data) ? result.data : [];
@@ -33,7 +41,7 @@ async function loadData() {
     renderTable();
   } catch (error) {
     document.getElementById('tbl-body').innerHTML =
-      `<tr><td colspan="12" class="empty-state">Gagal mengambil data dari database: ${error.message}</td></tr>`;
+      `<tr><td colspan="12" class="empty-state">Gagal mengambil data: ${error.message}</td></tr>`;
     document.getElementById('row-count').textContent = '0 baris';
   }
 
